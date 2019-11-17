@@ -1,6 +1,12 @@
 package com.jianke.demo;
 
+import com.jianke.demo.designModel.CouponParam;
+import com.jianke.demo.designModel.CouponService;
+import com.jianke.demo.designModel.CouponType;
+import com.jianke.demo.designModel.DeductionFactory;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,7 +36,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
 })
-public class MallDemoServiceApplication {
+public class MallDemoServiceApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(MallDemoServiceApplication.class, args);
     }
@@ -49,6 +55,11 @@ public class MallDemoServiceApplication {
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
         bean.setOrder(SecurityProperties.DEFAULT_FILTER_ORDER - 1);
         return bean;
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("start....");
     }
 
 

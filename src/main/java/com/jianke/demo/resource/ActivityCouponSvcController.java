@@ -1,5 +1,9 @@
 package com.jianke.demo.resource;
 
+import com.jianke.demo.designModel.CouponParam;
+import com.jianke.demo.designModel.CouponService;
+import com.jianke.demo.designModel.CouponType;
+import com.jianke.demo.designModel.DeductionFactory;
 import com.jianke.demo.param.ActivityCouponParam;
 import com.jianke.demo.service.ActivityCouponService;
 import com.jianke.demo.vo.ActivityCouponVo;
@@ -25,6 +29,10 @@ public class ActivityCouponSvcController {
 
     @Autowired
     private ActivityCouponService activityCouponService;
+
+    @Autowired
+    private DeductionFactory factory;
+
 
     @ApiOperation(value = "优惠券删除接口")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -77,4 +85,23 @@ public class ActivityCouponSvcController {
         Page<ActivityCouponVo> vos = activityCouponService.findByPage(param, page, size);
         return new ResponseEntity<>(vos, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "优惠券分页接口")
+    @RequestMapping(method = RequestMethod.GET, value = "/test/Service")
+    public void testService() {
+        for (CouponType type : CouponType.values()) {
+            CouponService service = factory.getCouponService(type.getType());
+            try {
+                CouponParam param = new CouponParam();
+                param.setType("all");
+
+                service.isUse(param);
+                service.use(param);
+                service.reduce(param);
+            } catch (Exception e) {
+                System.out.println("订单[accountId={}]优惠摊分出错：{}" + e);
+            }
+        }
+    }
+
 }

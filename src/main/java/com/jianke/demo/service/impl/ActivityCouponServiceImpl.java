@@ -18,6 +18,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @program: mall-share
  * @description: ${description}
@@ -39,6 +42,7 @@ public class ActivityCouponServiceImpl extends BaseQueryServiceAdapter<ActivityC
 
     @Override
     public ActivityCouponVo save(ActivityCouponVo vo) throws BaseException {
+        ValidatorUtil.validate(vo);
         ActivityCoupon activityCoupon = BeanUtil.convert(vo, ActivityCoupon.class);
         activityCouponMapper.insert(activityCoupon);
         return findById(activityCoupon.getId());

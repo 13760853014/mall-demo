@@ -17,6 +17,11 @@ junit test  h2
 redis
 mongoDB
 
+//
+11第一周
+webFlux, junit
+rabbitMQ
+
 fastDFS
 Excel
 qrCode
